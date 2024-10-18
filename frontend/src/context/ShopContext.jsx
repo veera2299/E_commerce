@@ -10,17 +10,18 @@ const getDefaultCart = () => {
     return cart;
 }
 
+const Backend_URL = "http://localhost:4000";
 
-const ShopContextProvider = (props) => {
+const ShopContextProvider = (props) => { 
 
     const [cartItems, setCartItems] = useState(getDefaultCart());
     const [all_product, setAll_Product] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:4000/allproducts")
+        fetch(`${Backend_URL}/product/allproducts`)
             .then((res) => res.json())
             .then((data) => setAll_Product(data));
-        fetch('http://localhost:4000/getcart', {
+        fetch(`${Backend_URL}/user/get-cart`, {
             method: "POST",
             headers: {
                 Accept: "application/form-data",
@@ -35,7 +36,7 @@ const ShopContextProvider = (props) => {
     const addToCart = (itemId) => {
         setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
         if (localStorage.getItem('auth-token')) {
-            fetch('http://localhost:4000/addtocart', {
+            fetch(`${Backend_URL}/user/add-cart`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/form-data',
@@ -50,7 +51,7 @@ const ShopContextProvider = (props) => {
     const removeFromCart = (itemId) => {
         setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
         if (localStorage.getItem('auth-token')) {
-            fetch('http://localhost:4000/removefromcart', {
+            fetch(`${Backend_URL}/user/remove-cart`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/form-data',
@@ -67,11 +68,14 @@ const ShopContextProvider = (props) => {
         for (const item in cartItems) {
             if (cartItems[item] > 0) {
                 let itemInfo = all_product.find((product) => product.id === Number(item));
-                totalAmount += itemInfo.new_price * cartItems[item];
+                if (itemInfo) {
+                    totalAmount += itemInfo.new_price * cartItems[item];
+                }
             }
         }
         return totalAmount;
     }
+    
 
     const getTotalCartItems = () => {
         let totalItem = 0;
@@ -83,7 +87,7 @@ const ShopContextProvider = (props) => {
         return totalItem;
     }
 
-    const contextValue = { all_product, cartItems, addToCart, removeFromCart, getTotalCartAmount, getTotalCartItems };
+    const contextValue = { all_product, cartItems, addToCart, removeFromCart, getTotalCartAmount, getTotalCartItems , Backend_URL};
 
     return (
         <ShopContext.Provider value={contextValue} >

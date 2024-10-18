@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import './Navbar.css';
 import logo from '../Assets/v2_logo_white.png';
 import cart_icon from '../Assets/cart_icon.png';
@@ -7,7 +7,7 @@ import { ShopContext } from '../../context/ShopContext';
 import nav_dropdown from '../Assets/nav_dropdown.png'
 
 const Navbar = () => {
-  const [menu, setMenu] = useState('shop');
+  const [menu, setMenu] = useState(localStorage.getItem('activeMenu') || 'shop');
   const { getTotalCartItems } = useContext(ShopContext);
   const menuRef = useRef();
 
@@ -15,6 +15,9 @@ const Navbar = () => {
     menuRef.current.classList.toggle('nav-menu-visible');
     e.target.classList.toggle('open');
   }
+  useEffect(()=>{
+    localStorage.setItem('activeMenu', menu)
+  },[menu])
 
   return (
     <div className='navbar'>

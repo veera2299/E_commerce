@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './CSS/LoginSignup.css'
+import { ShopContext } from '../context/ShopContext';
 
 const LoginSignup = () => {
 
@@ -11,14 +12,30 @@ const LoginSignup = () => {
     email: ""
   })
 
+  const { Backend_URL } = useContext(ShopContext);
+
   const changeHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
+  const validateForm = () => {
+    const { username, password, email } = formData;
+    if (state === "SignUp" && (!username || !email || !password)) {
+      alert("Please fill in all fields for Signup")
+      return false;
+    }
+    if(state === "Login" && (!email || !password)){
+      alert("Please fill in both email and password for Login")
+      return false;
+    }
+    return true;
+  }
+
   const login = async () => {
+    if(!validateForm()) return;
     console.log("Login function executed", formData);
     let responseData;
-    await fetch("http://localhost:4000/login", {
+    await fetch(`${Backend_URL}/user/login`, {
       method: "POST",
       headers: {
         Accept: "application/form-data",
@@ -37,10 +54,12 @@ const LoginSignup = () => {
   }
 
   const signUp = async () => {
+
+    if(!validateForm()) return;
     console.log("signUp function executed", formData);
 
     let responseData;
-    await fetch('http://localhost:4000/signup', {
+    await fetch(`${Backend_URL}/user/signup`, {
       method: "POST",
       headers: {
         Accept: "application/form-data",
@@ -58,7 +77,7 @@ const LoginSignup = () => {
   }
 
   return (
-    <div className='loginsignup'>
+    <div className='loginsignup '>
       <div className="loginsignup-container">
         <h1>{state}</h1>
         <div className="loginsignup-fields">
