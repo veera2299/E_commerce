@@ -4,6 +4,9 @@ import upload_area from '../../assets/upload_area.svg'
 
 const AddProduct = () => {
 
+  const Backend_URL = "http://localhost:4000"
+  // const Backend_URL = "https://ecommerce-backend-q5i0.onrender.com";
+
   const [img, setImg] = useState(false);
   const [productDetails, setProductDetails] = useState({
     name: "",
@@ -30,7 +33,7 @@ const AddProduct = () => {
 
     formData.append('product', img);
 
-    await fetch('http://localhost:4000/upload', {
+    await fetch(`${Backend_URL}/upload`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -41,7 +44,7 @@ const AddProduct = () => {
 
     if (responseData.success) {
       product.image = responseData.image_url;
-      await fetch('http://localhost:4000/addproduct', {
+      await fetch(`${Backend_URL}/product/addproduct`, {
         method: "POST",
         headers: {
           Accept: 'application/json',

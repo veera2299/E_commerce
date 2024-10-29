@@ -1,5 +1,5 @@
 const Product = require("../Models/Product");
-
+const fs = require('fs');
 
 const addProduct =  async (req, res) => {
     try {
@@ -29,9 +29,16 @@ const addProduct =  async (req, res) => {
 // //creating API for deleting Products
 
 const removeProduct =  async (req, res) => {
-    await Product.findOneAndDelete({ id: req.body.id });
-    res.json({ success: true, name: req.body.name });
+    try {
+        const removedProduct = await Product.findOne({id: req.body.id});
+        fs.unlink(`upload/${removedProduct.image}`, () => { });
+        await Product.findOneAndDelete({id: req.body.id});
+        res.json({ success: true, message: "Product removed" })
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: "failed to remove Product" })
 
+    }
 }
 //creating API for getting all products
 

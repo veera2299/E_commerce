@@ -47,11 +47,11 @@ app.use('/images', express.static('upload/images'))
 app.post("/upload", upload.single('product'), (req, res) => {
     res.json({
         success: 1,
-        image_url: `${Backend_URL}/images/${req.file.filename}`
+        image_url: `images/${req.file.filename}`
     })
 })
 
-app.use('/product',productRoutes);
+app.use('/product', productRoutes);
 app.use('/user', userRoutes);
 
 app.listen(PORT, (error) => {

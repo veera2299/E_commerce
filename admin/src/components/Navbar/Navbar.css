@@ -7,19 +7,41 @@
     margin-bottom: 1px;
     background-color: white;
 }
-.nav-logo{
-    width: 200px;
+.navlogo-container{
+    display: flex;
+    text-transform: uppercase;
+    column-gap: 10px;
+    align-items: center;
+    justify-content: center;
 }
-.nav-profile{
-    width: 75px;
+.navlogo-container h2{
+    color: orange;
+    font-size: x-large;
+}
+
+.nav-logo{
+    width: 3em;
+}
+.navbar .logo{
+    font-size: 2.5rem;
 }
 
 @media(max-width:800px){
     .navbar{
         padding: 15px 30px;
     }
+    .navlogo-container{
+        display: flex;
+        flex-direction: column;
+    }
+    .navlogo-container h2{
+        font-size: medium;
+    }
     .nav-logo{
-        width: 150px;
+        width: 2
+        
+        em;
+        height: 2em;
     }
     .nav-profile{
         width: 60px;
