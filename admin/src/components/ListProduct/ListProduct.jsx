@@ -4,8 +4,8 @@ import cross_icon from '../../assets/cross_icon.png'
 
 const ListProduct = () => {
 
-  const Backend_URL = "http://localhost:4000"
-  // const Backend_URL = "https://ecommerce-backend-q5i0.onrender.com";
+  // const Backend_URL = "http://localhost:4000"
+  const Backend_URL = "https://ecommerce-backend-q5i0.onrender.com";
 
   const [allproducts, setAllproducts] = useState([]);
 

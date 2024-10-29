@@ -4,8 +4,8 @@ import upload_area from '../../assets/upload_area.svg'
 
 const AddProduct = () => {
 
-  const Backend_URL = "http://localhost:4000"
-  // const Backend_URL = "https://ecommerce-backend-q5i0.onrender.com";
+  // const Backend_URL = "http://localhost:4000"
+  const Backend_URL = "https://ecommerce-backend-q5i0.onrender.com";
 
   const [img, setImg] = useState(false);
   const [productDetails, setProductDetails] = useState({
