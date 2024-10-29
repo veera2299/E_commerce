@@ -1,5 +1,8 @@
 const User = require('../Models/User.js');
 const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 //creating endpoint for registering the User
 
@@ -24,7 +27,7 @@ const signUp =  async (req, res) => {
         }
     }
 
-    const token = jwt.sign(data, 'secret_ecom');
+    const token = jwt.sign(data, process.env.JWT_SECRET);
     res.json({ success: true, token });
 }
 
@@ -41,7 +44,7 @@ const login =  async (req, res) => {
                     id: user.id
                 }
             }
-            const token = jwt.sign(data, 'secret_ecom');
+            const token = jwt.sign(data, process.env.JWT_SECRET);
             res.json({ success: true, token })
         } else {
             res.json({ success: false, error: "Wrong Password" });
