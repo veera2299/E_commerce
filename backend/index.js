@@ -12,6 +12,9 @@ const app = express();
 dotenv.config();
 app.use(cors());
 
+const Backend_URL = "https://ecommerce-backend-q5i0.onrender.com";
+// const Backend_URL = "http://localhost:4000"
+
 const PORT = process.env.PORT || 4000;
 app.use(express.json());
 
@@ -44,7 +47,7 @@ app.use('/images', express.static('upload/images'))
 app.post("/upload", upload.single('product'), (req, res) => {
     res.json({
         success: 1,
-        image_url: `${process.env.Backend_URL}/images/${req.file.filename}`
+        image_url: `${Backend_URL}/images/${req.file.filename}`
     })
 })
 
