@@ -11,6 +11,7 @@ const getDefaultCart = () => {
 }
 
 const Backend_URL = "https://ecommerce-backend-q5i0.onrender.com";
+// const Backend_URL = "http://localhost:4000"
 
 const ShopContextProvider = (props) => { 
 

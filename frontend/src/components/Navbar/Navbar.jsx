@@ -16,7 +16,7 @@ const Navbar = () => {
     e.target.classList.toggle('open');
   }
   useEffect(()=>{
-    localStorage.setItem('activeMenu', menu)
+    localStorage.setItem('activeMenu', menu) 
   },[menu])
 
   return (

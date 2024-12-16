@@ -170,6 +170,7 @@
         transform: scale(0.8);
     }
     .nav-menu{
+        margin-top: 30px;
         height: 70px;
         top: 50px;
     }
